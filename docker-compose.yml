@@ -1,0 +1,124 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: runbook-postgres
+    environment:
+      POSTGRES_DB: runbook_engine
+      POSTGRES_USER: runbook_user
+      POSTGRES_PASSWORD: runbook_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
+    networks:
+      - runbook-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U runbook_user -d runbook_engine"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: runbook-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - runbook-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Temporal Server
+  temporal:
+    image: temporalio/auto-setup:latest
+    container_name: runbook-temporal
+    ports:
+      - "7233:7233"  # gRPC
+      - "8233:8233"  # HTTP
+      - "8088:8088"  # UI
+    environment:
+      - DB=postgresql
+      - DB_PORT=5432
+      - DB_HOST=postgres
+      - DB_USER=runbook_user
+      - DB_PASSWORD=runbook_password
+      - DB_NAME=temporal
+      - DEFAULT_NAMESPACE=default
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - runbook-network
+    healthcheck:
+      test: ["CMD", "tctl", "--address", "localhost:7233", "cluster", "health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API Server
+  api:
+    build:
+      context: .
+      dockerfile: build/backend/Dockerfile
+    container_name: runbook-api
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USER=runbook_user
+      - DATABASE_PASSWORD=runbook_password
+      - DATABASE_NAME=runbook_engine
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - TEMPORAL_HOST=temporal
+      - TEMPORAL_PORT=7233
+      - JWT_SECRET=your-super-secret-jwt-key
+      - ENVIRONMENT=development
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      temporal:
+        condition: service_healthy
+    networks:
+      - runbook-network
+    volumes:
+      - ./config:/app/config
+
+  # Frontend Development Server
+  frontend:
+    build:
+      context: ./web
+      dockerfile: Dockerfile.dev
+    container_name: runbook-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8080
+    depends_on:
+      - api
+    networks:
+      - runbook-network
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  runbook-network:
+    driver: bridge

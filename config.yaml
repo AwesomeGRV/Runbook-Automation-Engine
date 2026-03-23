@@ -1,0 +1,54 @@
+# Configuration
+environment: development
+version: 1.0.0
+
+# Server
+server:
+  port: 8080
+  host: 0.0.0.0
+  read_timeout: 15
+  write_timeout: 15
+  idle_timeout: 60
+
+# Database
+database:
+  host: postgres
+  port: 5432
+  username: runbook_user
+  password: runbook_password
+  database: runbook_engine
+  ssl_mode: disable
+  max_open_conns: 25
+  max_idle_conns: 25
+
+# Redis
+redis:
+  host: redis
+  port: 6379
+  password: ""
+  database: 0
+
+# Temporal
+temporal:
+  host: temporal
+  port: 7233
+  namespace: default
+  task_queue: runbook-queue
+
+# Kubernetes
+kubernetes:
+  kubeconfig: ""
+  in_cluster: false
+  namespace: default
+
+# Vault
+vault:
+  address: http://localhost:8200
+  token: ""
+  path: secret
+  auth_type: token
+
+# JWT
+jwt:
+  secret: your-super-secret-jwt-key-change-in-production
+  expiration: 3600
