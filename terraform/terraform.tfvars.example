@@ -1,0 +1,64 @@
+# Example terraform.tfvars file
+# Copy this file and customize for your environment
+
+# AWS Configuration
+aws_region = "us-west-2"
+
+# Kubernetes Configuration
+kubeconfig_path = "~/.kube/config"
+kubeconfig_context = ""  # Leave empty to use current context
+
+# Application Configuration
+namespace = "runbook-engine"
+environment = "production"
+domain_name = "runbook-engine.yourdomain.com"
+
+# Ingress Configuration
+ingress_class = "nginx"
+cluster_issuer = "letsencrypt-prod"
+
+# Storage Configuration
+storage_class_name = "gp2"
+
+# Database Configuration
+postgres_storage_size = "100Gi"
+postgres_cpu_request = "250m"
+postgres_cpu_limit = "1000m"
+postgres_memory_request = "512Mi"
+postgres_memory_limit = "2Gi"
+
+# Redis Configuration
+redis_storage_size = "20Gi"
+redis_cpu_request = "100m"
+redis_cpu_limit = "500m"
+redis_memory_request = "128Mi"
+redis_memory_limit = "512Mi"
+
+# API Configuration
+api_image = "your-registry/runbook-engine/api:v1.0.0"
+api_replicas = 3
+api_min_replicas = 1
+api_max_replicas = 10
+api_cpu_request = "200m"
+api_cpu_limit = "1000m"
+api_memory_request = "256Mi"
+api_memory_limit = "1Gi"
+api_cpu_target_utilization = 70
+api_memory_target_utilization = 80
+
+# Frontend Configuration
+frontend_image = "your-registry/runbook-engine/frontend:v1.0.0"
+frontend_replicas = 2
+frontend_cpu_request = "50m"
+frontend_cpu_limit = "200m"
+frontend_memory_request = "64Mi"
+frontend_memory_limit = "256Mi"
+
+# Temporal Configuration
+temporal_helm_version = "0.39.0"
+temporal_server_replicas = 1
+
+# Monitoring Configuration
+prometheus_helm_version = "48.1.0"
+prometheus_storage_size = "100Gi"
+grafana_admin_password = "your-secure-password-here"
