@@ -1,6 +1,6 @@
 # Runbook Automation Engine
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Docker & Docker Compose
@@ -53,7 +53,7 @@ npm install
 npm run dev
 ```
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 runbook-engine/
@@ -83,9 +83,9 @@ runbook-engine/
 └── config.yaml           # Configuration file
 ```
 
-## 🛠️ Available Features
+##  Available Features
 
-### ✅ Implemented
+###  Implemented
 - **Backend API**: REST endpoints for runbooks, executions, triggers
 - **Database Schema**: PostgreSQL with migrations
 - **Kubernetes Integration**: Client for K8s operations
@@ -93,20 +93,20 @@ runbook-engine/
 - **React Frontend**: Basic structure with Vite
 - **Docker Setup**: Complete development environment
 
-### 🚧 In Progress
+###  In Progress
 - Frontend components (needs dependency installation)
 - Authentication system
 - Complete workflow builder UI
 - Real-time execution monitoring
 
-### 📋 TODO
+###  TODO
 - Complete API handlers
 - Add more worker types
 - Implement authentication
 - Build comprehensive UI
 - Add monitoring and logging
 
-## 🔧 Configuration
+##  Configuration
 
 The application can be configured via:
 1. `config.yaml` file
@@ -120,7 +120,7 @@ Key configuration options:
 - JWT secret
 - Kubernetes access
 
-## 📊 Database Schema
+##  Database Schema
 
 The application uses PostgreSQL with the following main tables:
 - `users` - User management
@@ -130,7 +130,7 @@ The application uses PostgreSQL with the following main tables:
 - `triggers` - Trigger configurations
 - `integrations` - External integrations
 
-## 🐳 Docker Services
+##  Docker Services
 
 - **postgres**: PostgreSQL 15 database
 - **redis**: Redis 7 cache
@@ -138,7 +138,7 @@ The application uses PostgreSQL with the following main tables:
 - **api**: Backend API server
 - **frontend**: React development server
 
-## 🧪 Testing
+##  Testing
 
 ```bash
 # Backend tests
@@ -148,7 +148,7 @@ go test ./...
 cd web && npm test
 ```
 
-## 📝 Development Notes
+##  Development Notes
 
 ### TypeScript Errors
 The TypeScript errors in the frontend are expected because dependencies haven't been installed yet. To fix:
@@ -167,7 +167,7 @@ Database migrations run automatically when PostgreSQL starts. The initial schema
 - `POST /api/v1/runbooks` - Create runbook
 - `POST /api/v1/runbooks/{id}/execute` - Execute runbook
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -175,6 +175,6 @@ Database migrations run automatically when PostgreSQL starts. The initial schema
 4. Add tests
 5. Submit a pull request
 
-## 📄 License
+##  License
 
 MIT License - see LICENSE file for details.

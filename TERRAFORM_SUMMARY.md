@@ -1,6 +1,6 @@
 # Terraform deployment for Runbook Automation Engine
 
-## 🚀 Quick Deployment
+##  Quick Deployment
 
 ### Prerequisites
 - Terraform 1.0+
@@ -36,7 +36,7 @@ After deployment:
 - **Temporal UI**: `https://your-domain.com/temporal`
 - **Grafana**: `https://your-domain.com/grafana`
 
-## 📁 Files Created
+##  Files Created
 
 ```
 terraform/
@@ -52,7 +52,7 @@ terraform/
 └── development.tfvars   # Development settings
 ```
 
-## 🏗️ Architecture Deployed
+##  Architecture Deployed
 
 ### Core Services
 - **PostgreSQL**: Primary database with persistent storage
@@ -73,7 +73,7 @@ terraform/
 - **Ingress**: TLS termination with cert-manager
 - **PVCs**: Persistent storage for databases
 
-## 🔧 Key Features
+##  Key Features
 
 ### Security
 - Random passwords for all services
@@ -99,7 +99,7 @@ terraform/
 - Disaster recovery ready
 - Multi-environment support
 
-## 📊 Configuration Options
+##  Configuration Options
 
 ### Environment Variables
 - `environment`: dev/staging/prod
@@ -118,7 +118,7 @@ terraform/
 - `frontend_image`: Frontend Docker image
 - Helm chart versions
 
-## 🎯 Deployment Commands
+##  Deployment Commands
 
 ```bash
 # Initialize only
@@ -137,7 +137,7 @@ terraform/
 ./terraform/deploy.sh outputs
 ```
 
-## 🔍 Access Information
+##  Access Information
 
 After deployment, get access details:
 
@@ -158,7 +158,7 @@ terraform output redis_password
 terraform output grafana_admin_password
 ```
 
-## 🛠️ Customization
+##  Customization
 
 ### Production Environment
 ```bash
@@ -175,7 +175,7 @@ cp terraform/development.tfvars terraform/terraform.tfvars
 ### Custom Configuration
 Edit `terraform/terraform.tfvars` with your specific values.
 
-## 📈 Scaling
+##  Scaling
 
 ### Manual Scaling
 Update `api_replicas` in configuration and apply.
@@ -186,7 +186,7 @@ Configure HPA settings:
 - `api_max_replicas`: Maximum pods
 - `api_cpu_target_utilization`: CPU threshold
 
-## 🔒 Security Notes
+##  Security Notes
 
 - All passwords are randomly generated
 - Secrets are stored as Kubernetes secrets
@@ -194,7 +194,7 @@ Configure HPA settings:
 - TLS is enforced for external access
 - Containers run as non-root users
 
-## 🚨 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 1. **Pods not starting**: Check resource limits
